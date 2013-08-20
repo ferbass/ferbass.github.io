@@ -1,0 +1,76 @@
+---
+layout: post
+title: Calculo de Bhaskara com Objective-C
+categories:
+- Objective-C
+tags:
+- Bhaskara
+- objC
+- Objective-C
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  dsq_thread_id: '260268959'
+  aktt_tweeted: '1'
+---
+Na verdade esse post é uma "tradução" do post <a href="http://blog.avelino.us/2010/10/calculo-de-bhaskara-via-python.html">"Calculo de Bhaskara via Python"</a> escrito por <a href="http://twitter.com/avelino0">@avelino0</a>
+
+Um breve resumo, tenho visto que muitas pessoas aprender Objective-C pensando apenas em desenvolvimento de aplicações para iOS (iPod, iPhone e iPad) e não conhecem a origem da linguagem e outras maneiras de se aplicar.
+Para isso vamos fazer um calculo de Bhaskara em Objective-C que vai ser compilado e executado via Terminal.
+
+Para quem não lembra a formula de Bhaskara
+<img src="/uploads/2011/03/bascara.gif" alt="" title="bascara" width="159" height="51" class="aligncenter size-full wp-image-275" />
+
+Vou deixar a explicação dessa formula para vocês lerem no blog do <a href="http://twitter.com/avelino0">@avelino0</a> é so clicar <a href="http://blog.avelino.us/2010/10/calculo-de-bhaskara-via-python.html">aqui!</a>
+
+Mas vamos a parte que realmente interessa SHOW ME THE CODE!
+
+abra o <b>terminal</b> e com seu editor favorito (no meu caso eu utilizo o <b>vim</b>) crie um arquivo .m
+por exemplo <b>vim bhaskara.m</b>
+agora copie o código abaixo:
+<pre lang="objc">
+#import <Foundation/Foundation.h>
+
+int main(int argc, const char *argv[]){
+NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+int a;
+int b;
+int c;
+NSLog(@"\n Insira o valor de 'a'");
+scanf("%d", &a);
+NSLog(@"\n Insira o valor de 'b'");
+scanf("%d", &b);
+NSLog(@"\n Insira o valor de 'c'");
+scanf("%d", &c);
+//calculando
+int delta = (b^2)-(4*a*c);
+if (delta < 0){
+  NSLog(@"Delta negativo, raiz impossivel de ser extraida.");
+}else{
+  NSLog(@"Delta: %d", delta);
+  int raiz = sqrt(delta);
+  int x1 = (-b + raiz) / (2 * a) + 1;
+  int x2 = (-b - raiz) / (2 * a) - 1;
+  NSLog(@"\n Raiz ~ x1 = %d", x1);
+  NSLog(@"\n Raiz ~ x2 = %d", x2);
+} 
+[pool drain];
+return 0;
+} 
+</pre>
+salve o arquivo!
+pront agora vamos compilar para isso é so digitar na sua linha de comando
+<b>gcc -framework Foundation bhaskara.m -o bhaskara</b>
+feito isso vai ser criado um objeto bhaskara que pode ser executado digitando <b>./bhaskara</b>
+agora é so inserir os valores e ver o resultado!
+<img src="/uploads/2011/03/Screen-shot-2011-03-22-at-01.25.53.png" alt="" title="Screen shot 2011-03-22 at 01.25.53" width="584" height="476" class="aligncenter size-full wp-image-279" />
+
+Bem simples, mas esse post é para mostrar que Objective-C vai alem de apps de iOS e MAC. Estou bolando um post legal de como usar Objective-C no Linux.
+
+Espero que tenham gostado do post
+
+Abraço
+

@@ -1,0 +1,198 @@
+---
+layout: post
+title: Propriedades em Objective-C
+categories:
+- Objective-C
+tags:
+- objective
+- propriedades
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  dsq_thread_id: '254631020'
+  aktt_tweeted: '1'
+---
+Propriedades apareceram em Objective-C na versão 2.0. Eles são o tipo de variáveis ​​de membro virtual. Se você pensar sobre isso, só há duas coisas que você pode fazer para uma variável: atribuir um valor e extrair um valor . Você pode fazer uma variável constante para evitar que ele seja definido, ou escondê-lo, tornando-privadas ou protegidas, mas em nada a definição de valor de uma variável membro afeta o comportamento de um objeto. Propriedades não precisa fazer isso, mas eles podem. Em linguagens orientada a objeto, variáveis ​​de membro descrever o estado de um objeto, enquanto as funções (métodos, mensagens) descrever seu comportamento. Propriedades nos permitem transformar em conjunto de estado e do comportamento.
+
+<b>Propriedade como um indicador de estado</b>
+
+Vejamos o código abaixo
+
+<pre lang="objc">
+@interface MyClass : NSObject {
+        @private int myIntVar;
+}
+@property (readwrite,assign) int myIntVar;
+@end
+</pre>
+
+<pre lang="objc">
+@implementation MyClass
+@synthesize myIntVar;
+@end
+</pre>
+
+<pre lang="objc">
+int main (int argc, const char * argv[]) {
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+    // insert code here...
+    MyClass *myClass = [[MyClass new] autorelease];
+    myClass.myIntVar = 30;
+    NSLog(@"%d", myClass.myIntVar);
+    [pool drain];
+    return 0;
+}
+</pre>
+
+Depois de declarar uma propriedade em Objective-C, você tem que dizer ao compilador para instanciá-lo usando a directiva @synthesize. Fazendo isso você diz ao compilador para gerar um getter e um setter. Por padrão, a variável representada pela propriedade tem o mesmo nome como uma propriedade. No nosso exemplo, o compilador gerará o seguinte:
+
+<pre lang="objc">
+-(void)setmyIntVar:(int)i
+{
+        myIntVar = i;
+}
+-(int)myIntVar
+{
+        return self->myIntVar;
+}
+</pre>
+
+Como você pode ver na class exemplo MyClass, as propriedades podem ser acessadas ​​usando a notação. Elas também podem ser acessadas ​​através de métodos de acesso. Tambem podemos especificar o atributo readonly ao invés de ReadWrite.
+
+<pre lang="objc">@property (readonly,assign) int myIntVar;</pre>
+
+Isso impediria a propriedade de ser atribuído. Você ainda pode alterar o valor da variável de membro correspondente, porém, referenciando-lo diretamente.
+
+<pre lang="objc">self->myIntVar =100;</pre>
+
+<b>Propriedade como um indicador do Comportamento</b>
+
+Como foi mencionado anteriormente, o compilador gera assessores para cada propriedade. Leitura e escrita tem as duas propriedades getter e um setter, enquanto as propriedades read-only obter apenas um getter. Getters e setters são mensagens, e se substituído, pode ser usado para fazer praticamente qualquer coisa.
+
+<pre lang="objc">
+@interface MyClass : NSObject {
+        @private int myIntVar;
+}
+@property (readwrite,assign) int myIntVar;
+
+-(void)myMethod;
+@end
+
+@implementation MyClass
+@synthesize myIntVar;
+
+-(void)myMethod
+{
+        NSLog(@”method called”);
+}
+
+-(void)setMyIntVar:(int)inMyVar
+{
+        myIntVar = inMyVar;
+        [self myMethod];
+}
+@end
+</pre>
+
+Quando definimos um setter, dissemos ao compilador que ele não precisa gerar outro. Observe como chamamos         [self myMethod]. Nós apenas alteramos o comportamento do objeto. Outra maneira de obter resultados semelhantes está usando @dynamic. Quando fazemos isso o compilador não para gerar as mensagens de accesso e quem vai fazer essa função somos nós mesmos ou definindo diretamente ou através de introspecção.
+
+<pre lang="objc">
+@interface MyClass : NSObject {
+        @private int myIntVar;
+}
+@property (readwrite,assign) int myIntVar;
+@end
+@implementation MyClass
+@dynamic myIntVar;
+-(int)myIntVar
+{
+        NSLog(@”myIntVar called”);
+        return 1;
+}
+-(void)setMyVar:(int)inMyVar
+{
+        NSLog(@”setMyVar called”);
+}
+@end
+</pre>
+
+Nesse ponto demos um grande salto. Como podemos ver, não tem sequer a alteração no estado. Nós podemos simplesmente alterar o comportamento do objeto!
+Na realidade, os assessores não precisa nem mesmo ser chamado de forma padrão. Nós podemos fornecer nossos próprios nomes usando atributos getter e setter.
+
+<pre lang="objc">
+@interface MyClass : NSObject {
+        @private int myIntVar;
+}
+@property (getter=foo,setter=bar:) int myIntVar;
+@end
+@implementation MyClass
+@synthesize myIntVar;
+-(int)foo
+{
+        return 50;
+}
+-(void)bar:(int)inMyVar
+{
+        self->myIntVar = inMyVar;
+}
+@end
+</pre>
+
+<b>Mais Atributos (assign, retain, copy)</b>
+
+Esses atributos são auto explicativo. Eles têm a ver com a maneira como as variáveis ​​de instância estão sendo atribuídos. Eles também são mutuamente exclusivos. <b>assign</b> atribuir uma tarefa de força bruta de um valor, <b>retain</b> mantém um ponteiro e <b>copy</b> atribui uma cópia do original.
+Vendo isso em código ficaria:
+
+<pre lang="objc">
+@interface MyClass : NSObject {
+        @private NSString *myStringVar0;
+        @private NSString *myStringVar1;
+        @private NSString *myStringVar2;
+}
+@property (readwrite, assign) NSString *myStringVar0;
+@property (readwrite, retain) NSString *myStringVar1;
+@property (readwrite, copy) NSString *myStringVar2;
+@end
+</pre>
+
+E os setters gerados seriam mais ou menos assim:
+
+<pre lang="objc">
+-(void)setMyStringVar0:(NSString*)inMyStringVar0
+{
+        if (self->myStringVar0 != inMyStringVar0)
+        {
+                [self->myStringVar0 release];
+                self->myStringVar0 = [inMyStringVar0 assign];
+        }
+}
+
+-(void)setMyStringVar1:(NSString*)inMyStringVar1
+{
+        if (self->myStringVar1 != inMyStringVar1)
+        {
+                [self->myStringVar1 release];
+                self->myStringVar1 = [inMyStringVar1 retain];
+        }
+}
+
+-(void)setMyStringVar2:(NSString*)inMyStringVar2
+{
+        if (self->myStringVar2 != inMyStringVar2)
+        {
+                [self->myStringVar2 release];
+                self->myStringVar2 = [inMyStringVar2 copy];
+        }
+}
+</pre>
+
+Quando queremos utilizar <b>copy</b> há a possibilidade de que variável seja mutável. Desde NSMutableString derive de NSString, podemos ter um problema se o comportamento do objeto depende da imutabilidade do variável.
+
+<b>nonatomic</b>
+
+Por padrão, todas as atribuições são de propriedade atômica, ou seja, são "semáforos" para garantir segurança de segmentos. Atomicidade é um recurso interessante, mas é muito raro sua aplicação, ela não é multithreaded e não garante a segurança do segmento. Portanto, é uma boa prática a utilização de <b>nonatomic</b>.
+
+Bom essa foi uma pequena introdução a Propriedades, espero que tenham gostado.

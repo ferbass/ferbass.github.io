@@ -1,0 +1,104 @@
+---
+layout: post
+title: ! '[Objective-C] Trabalhando com Arrays'
+categories:
+- Objective-C
+tags:
+- array
+- nsarray
+- nsmutablearray
+- objC
+- Objective-C
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  dsq_thread_id: '262893218'
+  aktt_tweeted: '1'
+---
+Uma array é um objeto que contém coleções de outros objetos. Array em Objective-C são tratados com NSArray. A classe NSArray contém uma série de métodos especificamente projetados para facilitar a criação e manipulação de matrizes. Ao contrário de algumas linguagens de programação orientada a objetos (C # sendo um exemplo), os objetos contidos em uma matriz não têm todos de ser do mesmo tipo.
+
+<b>Tipos de Arrays</b>
+
+Arrays em Objective-C podem ser encontrados de duas maneiras, mutáveis ​​e imutáveis (NSArray, NSMutableArray)​​. O conteúdo dos arrays imutável não pode ser alterado após o array ser iniciado. Arrays são imutáveis quando ​​instanciado da classe NSArray. Array mutável são criadas usando a classe NSMutableArray (uma subclasse de NSArray) e pode ser modificado depois de terem sido criados e inicializados.
+
+<b>NSArray</b>
+
+Show me the code!
+<pre lang="objc">
+NSArray *array = [[NSArray alloc] init];
+</pre>
+
+No código acima criamos um array imutável vazio, e devido a isso não conseguimos adicionar objetos a ele, sempre será um array vazio.
+A classe NSArray contém um método de classe chamado arrayWithObjects que podem ser chamados a criar um novo  array e inicializá-lo com elementos. Por exemplo: 
+<pre lang="objc">
+NSArray *basket = [NSArray arrayWithObjects: @"Apple", @"Banana", @"Pineapple", @"Orange", nil]
+</pre>
+
+Perceba que cada objecto adicionado é separado apenas por virgula (@"Apple"<b>,</b> @"Banana"<b>,</b>@"Pineapple"<b>,</b> @"Orange"<b>,</b> nil) e se repararmos o ultimo objeto do array é nil (nulo).
+Diferente de outras linguagens devemos colocar <b>nil</b> para que os métodos chamados possam saber onde o fim da array.
+
+<b>NSMutableArray</b>
+
+Podemos criar Arrays mutáveis da mesma maneira que criamos um array não mutável, por exemplo:
+<pre lang="objc">
+NSMutableArray *array = [[NSMutableArray alloc] init];
+</pre>
+
+a diferença é que quando for necessário podemos adicionar objetos a esse array.
+<pre lang="objc">
+[array addObject:@"item 1"];
+[array addObject:@"item 2"];
+[array addObject:@"item 3"];
+...
+</pre>
+
+Uma coisa muito interessante do NSMutableArray é um método chamado <b>insertObject</b> que é seguido do parametro <b>atIndex</b>, ou seja podemos adicionar objetos em nosso arrays em índices determinados por nós.
+
+Por exemplo se eu pegar o array criado acima que contem 3 itens e adicionar
+<pre lang="objc">
+[array insertObject: @"item 10" atIndex:1];
+</pre>
+
+a saída ficaria da seguinte maneira
+<pre>
+Item 1
+Item 10
+Item 2
+Item 3
+...
+</pre>
+
+A sub classe <b>NSMutableArray</b> é muito poderosa e nos permite trabalhar "livremente" com arrays podendo adicionar e remover objetos. Vamos ver alguns métodos nos exemplos de como remover objetos de arrays.
+<pre lang="objc">
+NSMutableArray *basket = [NSMutableArray arrayWithObjects: @"Apple", @"Banana", @"Pineapple", @"Orange", nil]
+</pre>
+
+<b>removeObjectAtIndex:</b> remove um objeto de um indice específico
+<pre lang="objc">
+[basket removeObjectAtIndex:3];
+</pre>
+
+<b>removeObject</b> remove a primeira instância do objeto passado como parametro 
+<pre lang="objc">
+[basket removeObject:@"Apple"];
+</pre>
+
+<b>removeAllObjects</b> remove todos os objetos do array
+<pre lang="objc">
+[basket removeAllObjects];
+</pre>
+
+para saber mais sobre os métodos da sub class NSMutableArray recomendo ver a referência da classe <a href="http://goo.gl/mflIF">aqui</a>
+
+Espero que tenham gostado do post.
+Para galera que esta acompanhando o blog fiquem atentos que em breve teremos grandes novidades.
+
+Abraço
+
+<h3>Atualiazação</h3>
+
+Caso queira ver na pratica como trabalhar com Arrays acesse meu novo projeto <b>iOSDevSpot</b> <a href="http://www.iosdevspot.com/casts/trabalhando-com-arrays">http://www.iosdevspot.com/casts/trabalhando-com-arrays</a>
+ 

@@ -1,0 +1,100 @@
+---
+layout: post
+title: Criando uma animação simples com cocos2d
+categories:
+- Objective-C
+tags:
+- animação
+- cocos
+- cocos2d
+- github
+- iphone
+- Objective-C
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  dsq_thread_id: '208663813'
+---
+Neste post vou criar uma animção simples com cocos2d
+
+Para começar é so criar um novo projeto com o template cocos2d Application
+<img src="/uploads/2011/01/Untitled.png" alt="" title="Untitled" width="600" height="150" class="aligncenter size-full wp-image-166" />
+
+Apos criar o template mande rodar o projeto para rodar o HelloWorld padrão que vem de exemplo com o template
+<img src="/uploads/2011/01/Screen-shot-2011-01-13-at-5.36.18-PM-300x154.png" alt="" title="Screen shot 2011-01-13 at 5.36.18 PM" width="300" height="154" class="aligncenter size-medium wp-image-174" />
+
+Legal, agora vamos utilizar esta cena padrão e vamos criar uma nova cena encima dela.
+
+Primeira coisa que vamos fazer é remover todo o codigo que está dentro do init do arquivo HelloWorldScene.m o código deve ficar assim:
+
+<pre lang="objc">
+-(id) init
+{
+	// always call "super" init
+	// Apple recommends to re-assign "self" with the "super" return value
+	if( (self=[super init] )) {
+
+	}
+	return self;
+}
+</pre>
+
+Agora dentro do init vamos criar um novo Sprite com o icone do cocos2d e vamos adicionar ele a tela:
+<pre lang="objc">
+-(id) init
+{
+	// always call "super" init
+	// Apple recommends to re-assign "self" with the "super" return value
+	if( (self=[super init] )) {
+		CCSprite *cocos = [CCSprite spriteWithFile:@"icon.png"];
+		
+		[self addChild:cocos];
+	}
+	return self;
+}
+</pre>
+
+Se rodarmos o código acima vamos perceber que o icone vai ficar fora da tela então vamos adicionar as seguintes linhas de cógido
+
+<pre lang="objc">
+CGSize size = [[CCDirector sharedDirector] winSize];
+ cocos.position = ccp(size.width/2,size.height/2);
+</pre>
+
+O código acima pega as dimensões da tela e coloca o sprite criado no centro da tela, agora se rodarmos o código vamos ver o icone no meio da tela do simulador.
+
+Agora vamos começar deixar a coisa mais interessante vamos animar o objeto para isso vamos usar o <a href="http://www.cocos2d-iphone.org/api-ref/0.99.5/interface_c_c_move_to.html">CCMoveTo</a> que vai receber 2 parâmetros Time que é o tempo que o objeto demora para se deslocar e Position que é a posição onde o objecto vai parar na tela.
+Então vamos adicionar o código abaixo antes de criarmos o objeto na tela com [self addChild:cocos];
+<pre lang="objc">
+id move = [CCMoveTo actionWithDuration:1.0f position:ccp(size.width/2,(size.height/2)-100)];
+[cocos runAction:move];
+</pre>
+Agora é so rodar e ver o objeto mexer para baixo na tela.
+Para ficar mais legal ainda vamos criar uma sequencia de movimentos para baixo, cima, esquerda e direita.
+
+<pre lang="objc">
+id move_down = [CCMoveTo actionWithDuration:1.0f position:ccp(size.width/2,(size.height/2)-100)];
+id move_up = [CCMoveTo actionWithDuration:2.0f position:ccp(size.width/2,(size.height/2)+100)];
+id move_center = [CCMoveTo actionWithDuration:1.0f position:ccp(size.width/2,size.height/2)];
+id move_left = [CCMoveTo actionWithDuration:1.0f position:ccp((size.width/2)-100,size.height/2)];
+id move_righ = [CCMoveTo actionWithDuration:2.0f position:ccp((size.width/2)+100,size.height/2)];
+		
+id sequence = [CCSequence actions:move_down,move_up,move_center,move_left,move_righ,move_center,nil];
+[cocos runAction:sequence];
+</pre>
+
+ e para repetir os movimentos acima é so adicionarmos <a href="http://www.cocos2d-iphone.org/api-ref/0.99.5/interface_c_c_repeat_forever.html">CCRepeatForever</a> apos nossa sequência então ficaria assim:
+
+<pre lang="objc">
+id repeat = [CCRepeatForever actionWithAction:sequence];
+[cocos runAction:repeat];
+</pre>
+
+Pronto agora a aplicação vai ficar em um loop infinito :)
+
+Pronto bem simples e sem muito segredo, uma pequena animação com cocos2d agora basta colocar a imaginação para funcionar para saber mais a lista de efeitos e movimentos segue o link oficial da api do cocos <a href="http://www.cocos2d-iphone.org/api-ref/0.99.5/">http://www.cocos2d-iphone.org/api-ref/0.99.5/</a>
+e para quem quiser o código que fizemos acima segue o link do github <a href="https://github.com/ferbass/cocos2dSimpleAnimation">https://github.com/ferbass/cocos2dSimpleAnimation</a>
+
+Abraço até a próxima

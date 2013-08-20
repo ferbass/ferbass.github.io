@@ -1,0 +1,27 @@
+---
+layout: post
+title: ! '[Dica] Removendo o Xcode'
+categories:
+- Fast hint
+tags:
+- Developer
+- ios
+- uninstall
+- xcode
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  dsq_thread_id: '296327752'
+  aktt_tweeted: '1'
+---
+Fala galera vamos para uma dica bem rápida.
+Muitas pessoas quando querem remover o Xcode de seu Mac normalmente removem a pasta <b>Developer</b> que esta localizada no <b> "/" </b> (Macintosh HD). Ok isso também funciona mas para evitar futuros problemas recomendo que na de remover o Xcode do seu Mac use a <b>command line</b> e com um simples comando vamos remover tudo sem dor de cabeça.
+
+<pre lang="shell">
+sudo /Developer/Library/uninstall-devtools --mode=all
+</pre>
+
+Pronto feito, você se livrou do Xcode rapido e sem dor de cabeça :)

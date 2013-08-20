@@ -1,0 +1,37 @@
+---
+layout: post
+title: ! '[Fast hint] UIWebView load html string'
+categories:
+- Fast hint
+- Objective-C
+tags:
+- html
+- ios
+- nsstring
+- objC
+- Objective-C
+- uiwebview
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  dsq_thread_id: '255684632'
+  aktt_tweeted: '1'
+---
+Now let's do a simple example to load a htmlString in the UIWebView
+it's really simple
+
+<pre lang="objc">
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+    NSString *htmlString =  [NSString stringWithString:@"<html><body><h1>WebView html String Example</h1><p>My first paragraph.</p></body></html>"];
+    [webView loadHTMLString:htmlString baseURL:nil];
+    [self.view addSubview:webView];
+}
+</pre>
+
+For this hint is all up to the next

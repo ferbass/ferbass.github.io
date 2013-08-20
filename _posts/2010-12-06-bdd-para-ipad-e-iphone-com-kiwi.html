@@ -1,0 +1,57 @@
+---
+layout: post
+title: BDD para IPad e IPhone com Kiwi
+categories:
+- Objective-C
+- Testes
+tags:
+- Ipad
+- iphone
+- objC
+- Objective-C
+- RSpec
+- Test
+status: publish
+type: post
+published: true
+meta:
+  dsq_thread_id: '185688846'
+  _edit_last: '1'
+---
+Quero apresentar uma biblioteca para testes unitarios em Objective-c chamada <a href="http://www.kiwi-lib.info">Kiwi</a>.
+Esta lib é bem simples de ser usada e para quem vem do Ruby vai perceber que ela é bem parecida com o Rspec como vocês podem ver no código abaixo
+
+Ruby - Rspec
+<pre lang="ruby">
+describe Person do
+  it "should have a name" do
+    person = Person.new
+    Person.name.should == "FerBass"
+  end
+end
+</pre>
+
+ObjC - Kiwi
+<pre lang="objc">
+describe(@"Person", ^{
+        it(@"should have a name", ^{
+            id person = [Person person];
+            [[person.name should] equal:@"FerBass"];
+        });
+});
+</pre>
+
+Reparem a semelhança entre o teste feito com Rspec e o código testando em Kiwi. O mais legal é que podemos utilizar de mocks, stubs, collections bem como estamos acostumados a fazer com RSpec, por exemplo
+
+<pre lang="objc">
+id carMock = [Car mock];
+[[carMock should] beMemberOfClass:[Car class]];
+[carMock shouldReceive:selector(currentGear) andReturn:theValue(3)];
+[[theValue(carMock.currentGear) should] equal:theValue(3)];
+</pre>
+
+Uma das coisas importantes é que classe spec do Kiwi é construida encima do SenTestingKit que faz parte do SDK do IPhone e Ipad, que possibilita integração com o X-Code sem necessidade de instalação ou configuração de scripts.
+
+Fica ai a dica para quem está interessado a fazer testes em seu código ObjC de maneira mais pratica, não deixe de ver a documentação oficial que é bem completa.
+<a href="https://github.com/alding/Kiwi">Github</a>
+<a href="http://www.kiwi-lib.info/docs.html">Documentação Oficial</a>

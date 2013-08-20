@@ -1,0 +1,58 @@
+---
+layout: post
+title: ! '[Fast hint] Objective-C string replace'
+categories:
+- Fast hint
+- Objective-C
+tags:
+- nsstring
+- objC
+- Objective-C
+- string replace
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  dsq_thread_id: '271218226'
+  aktt_tweeted: '1'
+---
+Thats a simple way to replace string in Objective-C
+
+in console create a "sampleStringReplace.m"  file and paste a code bellow
+<pre lang="objc">
+#import <Foundation/Foundation.h>
+
+int main(int argc, const char *argv[]){
+NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+//Init string with a original text
+NSString *string = [[NSString alloc] initWithString:@"New MacBook Pro only US$ 1.999,00"];
+NSLog(@"Original string \n %@", string);
+//now replace MacBook Pro string
+string = [string stringByReplacingOccurrencesOfString:@"MacBook Pro" withString:@"MacBook Air"];
+//log with replace string
+NSLog(@"String replace \n %@", string);
+[pool release];
+return 0;
+}
+</pre>
+
+execute 
+<pre>
+gcc -framework Foundation sampleStringReplace.m -o sampleStringReplace
+</pre>
+after
+<pre>
+./sampleStringReplace
+</pre>
+and output is...
+<pre>
+-> Original string
+-> New MacBook Pro only US$ 1.999,00
+-> String Replace
+-> New MacBook Air only US$ 1.999,00
+</pre>
+
+For this hint is all up to the next
+Thanks
