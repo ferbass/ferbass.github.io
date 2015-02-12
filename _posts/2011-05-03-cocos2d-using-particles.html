@@ -1,0 +1,67 @@
+---
+layout: post
+title: ! '[cocos2d] Using Particles'
+categories:
+- Objective-C
+tags:
+- cocos2d
+- iphone
+- objC
+- Objective-C
+- particle
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  dsq_thread_id: '294208968'
+  aktt_tweeted: '1'
+---
+In this post i'm show how to create a simple particle effects using cocos2d and Particle Designer app. 
+<a href="http://particledesigner.71squared.com/">Particle Designer</a> is a software produced by <a href="http://www.71squared.com/">71Squared</a>, with him you can create a visual effects for games, you can buy for only US$7,99. 
+
+<img src="/uploads/2011/05/Screen-shot-2011-05-03-at-01.59.06-300x260.png" alt="" title="Screen shot 2011-05-03 at 01.59.06" width="400" height="360" class="aligncenter size-medium wp-image-319" />
+
+That's a simple way to use a Particle Designer:
+1 -  Double click for select a effect
+2 -  Configure a effect attributes (image2)
+3 -  Save with plist file format (image3)
+
+<a href="/uploads/2011/05/Screen-shot-2011-05-03-at-02.13.04.png"><img src="/uploads/2011/05/Screen-shot-2011-05-03-at-02.13.04-300x212.png" alt="" title="Screen shot 2011-05-03 at 02.13.04" width="400" height="312" class="aligncenter size-medium wp-image-322" /></a>
+
+<a href="/uploads/2011/05/Screen-shot-2011-05-03-at-02.14.26.png"><img src="/uploads/2011/05/Screen-shot-2011-05-03-at-02.14.26-300x242.png" alt="" title="Screen shot 2011-05-03 at 02.14.26" width="400" height="342" class="aligncenter size-medium wp-image-323" /></a>
+
+Now we implement the particle in an example application
+
+Create a default cocos2d application template
+<a href="/uploads/2011/05/Screen-shot-2011-05-03-at-02.21.26.png"><img src="/uploads/2011/05/Screen-shot-2011-05-03-at-02.21.26-300x220.png" alt="" title="Screen shot 2011-05-03 at 02.21.26" width="400" height="320" class="aligncenter size-medium wp-image-325" /></a>
+
+Import a Particle Designer plist file to project
+Now on the HelloWorld Scene overwrite method <b>init</b>
+
+<pre lang="objC">
+-(id) init
+{
+	if( (self=[super init] )) {
+		CCParticleSystemQuad *fire = [CCParticleSystemQuad particleWithFile:@"fire.plist"];
+		CGSize size = [[CCDirector sharedDirector] winSize];
+		fire.position =  ccp( size.width /2 , size.height/2 );
+		[self addChild:fire];
+	}
+	return self;
+}
+</pre>
+
+and the final result
+
+<img src="/uploads/2011/05/Screen-shot-2011-05-03-at-02.29.24.png" alt="" title="Screen shot 2011-05-03 at 02.29.24" width="396" height="744" class="aligncenter size-full wp-image-327" />
+
+Download and fork github lighter project
+<a href="https://github.com/ferbass/lighter">https://github.com/ferbass/lighter</a>
+
+I hope you enjoy the article
+
+
+<a href="http://particledesigner.71squared.com/">Particle Designer</a>
+<a href="http://www.cocos2d-iphone.org/">cocos2d</a>

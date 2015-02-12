@@ -1,0 +1,73 @@
+---
+layout: post
+title: ! '[Objective-C] Singletons'
+categories:
+- Objective-C
+tags:
+- objC
+- Objective-C
+- singleton
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  dsq_thread_id: '274549185'
+  aktt_tweeted: '1'
+---
+Some days ago i'm read at <a href="http://www.twitter.com/cocoasamurai">@CocoaSamurai</a> blog a post intitled <a href="http://cocoasamurai.blogspot.com/2011/04/singletons-your-doing-them-wrong.html">"Singletons: You're doing them wrong"</a>
+Ok, but what is Singleton and for whats is needed?
+
+<blockquote>
+A singleton class returns the same instance no matter how many times an application requests it. A typical class permits callers to create as many instances of the class as they want, whereas with a singleton class, there can be only one instance of the class per process. A singleton object provides a global point of access to the resources of its class. Singletons are used in situations where this single point of control is desirable, such as with classes that offer some general service or resource.
+<a href="https://developer.apple.com/library/ios/#documentation/General/Conceptual/DevPedia-CocoaCore/Singleton.html">DevPedia-CocoaCore</a>
+</blockquote>
+
+<img src="/uploads/2011/04/singleton.jpg" alt="" title="singleton" width="528" height="174" class="aligncenter size-full wp-image-298" />
+
+Code sample
+
+<b>MyClass.h</b>
+<pre lang='objc'>
+#import <Foundation/Foundation.h>
+ 
+@interface MyClass : NSObject {
+ 
+}
++(MyClass*)sharedInstance;
+-(void)sharedMethod;
+@end
+</pre>
+
+<b>MyClass.m</b>
+<pre lang='objc'>
+@implementation MyClass
+static MyClass* _sharedInstance = nil;
+ 
++(MyClass*)sharedInstance
+{
+	@synchronized([MyClass class])
+	{
+		if (!_sharedInstance)
+			[[self alloc] init];
+		return _sharedInstance;
+	}
+	return nil;
+}
+ 
+-(void)sharedMethod {
+	NSLog(@"Hello i'm a singleton class");
+}
+@end
+</pre>
+
+To call you need only
+<pre lang='objc'>
+[[MyCllass sharedInstance] sharedMethod];
+</pre>
+
+When do you use a Singleton class it is created only a one instance the first time it is requested and thereafter ensures that no other instance can be created. And is not possible to you calling copy, release or retain in a instance of singleton class.
+I recommend to read a <a href="http://www.twitter.com/cocoasamurai">@CocoaSamurai</a> blog post about use of singletons <a href="http://cocoasamurai.blogspot.com/2011/04/singletons-your-doing-them-wrong.html">"Singletons: You're doing them wrong"</a>
+
+See ya

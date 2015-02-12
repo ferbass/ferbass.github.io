@@ -1,0 +1,102 @@
+---
+layout: post
+title: ! '[iOS5] Automatic Reference Counting (ARC)'
+categories:
+- Objective-C
+tags:
+- ARC
+- Automatic Reference Counting
+- ios
+- iOS5
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  dsq_thread_id: '326320484'
+  aktt_tweeted: '1'
+---
+Após a WWDC11 umas das features mais comentadas no Twitter e Blogs que tenho encontrado na web é sobre o Automatic Reference Counting ou o ARC como tem sido chamado. Mas o que realmente ele faz? Será que ele é o Garbage Collector do iOS? Bom valos lá.
+
+O que é um Garbage Collector (GC)?
+<em>Garbage Collector é um processo usado para a automação do gerenciamento de memória. Com ele é possível recuperar uma área de memória inutilizada por um programa, o que pode evitar problemas de vazamento de memória, resultando no esgotamento da memória livre para alocação. (Wikipedia).</em>
+
+E o Automatic Reference Counting (ARC) ? 
+<em>Automatic Reference Counting (ARC) é um recurso de nível de compilador, que simplifica o processo de gestão da vida útil dos objetos Objective-C. Em vez de você ter que lembrar de quando a manutenção ou liberação de um objeto, ARC avalia as condições de vida de seus objetos e insere automaticamente as chamadas de método adequado em tempo de compilação. (Tradução livre da documentação oficial)</em>
+
+A primeira vista são duas coisas muito semelhantes mas acredito que o ARC possa ser considerado o GC final para iOS muita coisa pode mudar ainda.
+
+Mas vamos entender como ele funciona:
+Hoje quando ainda estamos programando usando o SDK 4 para iOS temos que alocar e desalocar os objetos da memória manualmente durante o desenvolvimento de aplicativos para iOS e o fato do sistema não possuir GC fica muito complicado e temos que nós atentar para não causarmos leaks que resultam em crashs e lentidão nas aplicações. Ou seja hoje quando definimos uma string temos que lembrar de alocar o objeto NSString e em seguida após o uso desalocar o mesmo, por exemplo:
+
+<pre lang="objc">
+    NSString *string = [[NSString alloc] initWithString:@"Minha string"];
+    NSLog(@"%@", string);
+    [string release];
+</pre>
+
+Repare que no primeiro momento eu crio uma string e aloco a mesma e após uso eu faço a liberação da memória utilizando o método release. Mas com o ARC essa história acaba mudando nós não precisamos se preocupar em dar release nos objetos alocados por nós na memória. A nova versão do Xcode 4.2 que está vindo com o iOS5 beta já esta preparada para nos alertar sobre essa mudança por exemplo:
+
+Fazendo o código acima no Xcode 4.0.2 com SDK 4.3:
+
+<img src="/uploads/2011/06/Screen-shot-2011-06-08-at-23.48.38.png" alt="" title="Screen shot 2011-06-08 at 23.48.38" width="518" height="65" class="aligncenter size-full wp-image-357" />
+
+E agora no Xcode 4.2 com SDK 5
+
+<img src="/uploads/2011/06/Screen-shot-2011-06-08-at-23.49.09.png" alt="" title="Screen shot 2011-06-08 at 23.49.09" width="512" height="66" class="aligncenter size-full wp-image-358" />
+
+Repare que a diferença no SDK 5 a palavra release aparece cortada como um método deprecado e quando tentamos utiliza-la recebemos o seguinte erro:
+ "Semantic Issue: 'release' is unavailable: not available in automatic reference counting mode" 
+"Automatic Reference Counting Issue: Automatic Reference Counting <b>forbids</b> explicit message send of 'release'"
+
+<img src="/uploads/2011/06/Screen-shot-2011-06-08-at-23.54.12.png" alt="" title="Screen shot 2011-06-08 at 23.54.12" width="380" height="40" class="aligncenter size-full wp-image-359" />
+Detalhe na mensagem que temos a palavra <strong>forbids (proíbe)</strong> dizendo que não deve ser enviado release explicitamente.
+Interessante né? ai você vai me dizer: Ok eu não preciso dar mais release nos meus objetos, mas e quanto ao autorelease e o NSAutoReleasePool?
+
+Para quem não conhece a grosso modo o NSAutoReleasePool quando liberado da memória libera todos os objetos que receberam a mensagem de autorelease. 
+Pois é esses métodos também não são mais necessários, porém com o ARC nós temos blocos de <b>@autoreleasepool</b> que são mais eficientes que o NSAutoReleasePool, e para utilizar basta definir o bloco da seguinte maneira.
+
+<pre lang="objc">
+@autoreleasepool {
+   //Código para autoreleasepool
+}
+</pre>
+
+Utilizando o autorelease dessa maneira o compilador é capaz de calcular o melhor momento para ele liberar o pool da memória.
+
+Com o ARC também podemos de deixar de utilizar os seguintes itens:
+<pre lang="objc">
+NSZone
+retain e retainCount.
+@selector(retain), @selector(release)
+[super dealloc]
+</pre>
+
+Outra grande novidade do ARC são as propriedades ou como são chamadas <b>Lifetime Qualifiers</b>, ou seja objetos que não tenha um ciclo de vida definido é desalocado pelo ARC automaticamente. Na pratica seria como criar uma propriedade <strong>retain</strong> ou <strong>assign</strong> para seu objeto:
+
+<pre lang="objc">
+@property(retain) MyClass *myObject;
+@property(assign) MyClass *myObject;
+</pre>
+
+Mas como eu comentei acima esses caras "morreram" com a implementação do ARC outras figuras entram em cena são eles <b>strong</b> e <b>weak</b>
+
+<b>Strong</b> tem a mesma função que o <b>retain</b> já o <b>weak</b> é bem semelhante ao <b>assign</b> com a diferença que quando o objeto é desalocado a propriedade é definida para nula.
+ Existem outros usos para o <b>Lifetime Qualifiers</b> como por exemplo para alterar o ciclo de vida de uma variável, por exemplo:
+
+<pre lang="objc">
+NSString _weak *string = [[NSString alloc] initWithString:@"minha string"];
+</pre>
+
+<b>__strong</b> é o padrão. <strong>__weak</strong> especifica uma referência zero para um objeto. <strong>__unsafe_unretained</strong> especifica referência para um objeto que não está zerando as referências do objeto desalocado, o ponteiro é deixado pendente.  <strong>__autorelease</strong> cria uma variável temporaria na memória.
+
+Tudo isso citado acima é bem legal, mas me surgiu uma preocupação como converter meu projeto feito com SDK 4 para SDK 5 para começar utilizar o ARC? Pois é a Apple pensou em tudo e colocou uma opção no Xcode 4.2 que ajuda a gente migrar nossos projetos para utilizar ARC como foi feito ná epoca em que foi introduzido o uso de Objective-C 2.0 no Xcode. Veja como é simples: 
+
+<a href="/uploads/2011/06/Screen-shot-2011-06-09-at-00.45.25.png"><img src="/uploads/2011/06/Screen-shot-2011-06-09-at-00.45.25-300x150.png" alt="" title="Screen shot 2011-06-09 at 00.45.25" width="300" height="150" class="aligncenter size-medium wp-image-362" /></a>
+
+Depois disso é só NEXT NEXT NEXT e ir seguindo as instruções :)
+
+Bom galera é isso que tenho para falar sobre o tão falado Automatic Reference Counting (ARC), acredito que ainda é muito cedo para falarmos sobre Garbage Collector e que também estamos no Preview 1 do iOS 5 ou seja muita coisa pode mudar e quem sabe o ARC venha a evoluir mais e assuma esse papel de ser o tão esperado GC do iOS e se tudo der certo teremos o MacRuby rodando em nossos devices em pouco tempo =D
+
+Abraço

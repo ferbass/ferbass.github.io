@@ -1,0 +1,67 @@
+---
+layout: post
+title: ! '[Fast hint] Resize height of UITextView to its content'
+categories:
+- Fast hint
+- Objective-C
+tags:
+- fast hin
+- ios
+- iphone
+- objC
+- resize
+- UITextView
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  dsq_thread_id: '257899840'
+  aktt_tweeted: '1'
+---
+That's a common problem, many people ask to me how to make it simple
+Ok, let's go to more one fast hint
+
+let's go coding
+in your <b>- (void)viewDidLoad</b> create a <b>UITextField</b> and set a text
+
+<pre lang="objc">
+- (void)viewDidLoad
+{
+    UITextView *myTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, 10, 300, 50)];
+    [myTextView set:@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus pellentesque orci ac quam cursus semper."];
+    [self.view addSubview:myTextView];
+    [super viewDidLoad];
+}
+</pre>
+
+execute... and result got like this
+<img src="/uploads/2011/03/Screen-shot-2011-03-17-at-02.53.11.png" alt="" title="Screen shot 2011-03-17 at 02.53.11" width="347" height="356" class="aligncenter size-full wp-image-266" />
+
+Ok, but the text can be a bigger, and a UITextView get a scrollbar 
+<img src="/uploads/2011/03/Screen-shot-2011-03-17-at-02.58.47.png" alt="" title="Screen shot 2011-03-17 at 02.58.47" width="347" height="276" class="aligncenter size-full wp-image-267" />
+
+it's strange for user experience
+Ok, let's add a little code to solve that problem
+
+<pre lang="objc">
+- (void)viewDidLoad
+{
+    UITextView *myTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, 10, 300, 50)];
+    [myTextView setText:@"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi eleifend urna non velit vulputate porttitor. Aenean odio enim, consequat at euismod sed, congue in massa. Fusce volutpat laoreet elementum. Nam purus nisi, tristique et adipiscing sed, egestas vel libero. Nam iaculis placerat lectus at lacinia. Proin aliquet arcu eu leo."];
+    CGRect frame = myTextView.frame;
+    frame.size.height = myTextView.contentSize.height;
+    myTextView.frame = frame;
+    [self.view addSubview:myTextView];
+    [super viewDidLoad];
+}
+</pre>
+
+and now...
+<img src="/uploads/2011/03/Screen-shot-2011-03-17-at-03.05.15.png" alt="" title="Screen shot 2011-03-17 at 03.05.15" width="355" height="698" class="aligncenter size-full wp-image-268" />
+
+<b>UITextView</b> resize auto, test with differents size of text
+
+For this hint is all up to the next
+Thanks

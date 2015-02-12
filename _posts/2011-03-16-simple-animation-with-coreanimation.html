@@ -1,0 +1,65 @@
+---
+layout: post
+title: ! '[Fast hint] Simple animation with CoreAnimation'
+categories:
+- Fast hint
+- Objective-C
+tags:
+- Fast hint
+- Objective-C
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  dsq_thread_id: '255461537'
+  aktt_tweeted: '1'
+---
+Let's create a simple animation to flip UIImageView and change your image
+
+First Step
+create a UIImageView object
+<pre lang="objc">
+@interface MyClass : UIViewController{
+     UIImageView *myImageVIew;
+}
+@end
+</pre>
+
+set a default image
+<pre lang="objc">
+- (void)viewDidLoad {
+       [myImageView setImage:[UIImage imageNamed:@"image1.png"]];
+}
+</pre>
+
+Now let's to create the animation
+<pre lang="objc">
+-(void)flipAndChangeImage{
+[UIView transitionWithView:myImageView duration:1 options:UIViewAnimationOptionTransitionFlipFromLeft 
+	animations:^{  
+              [myImageView setImage:[UIImage imageNamed:@"image2.png"]];
+        }
+	completion:NULL]; 
+}
+</pre>
+
+Now we call function flipAndChangeImage in a action for example
+
+<pre lang="objc">
+-(IBAction)callAnimation{
+    [self flipAndChangeImage];
+}
+</pre>
+
+We have done a little animation
+We can use others effects for example
+<pre>
+    UIViewAnimationOptionTransitionFlipFromLeft
+    UIViewAnimationOptionTransitionFlipFromRight
+    UIViewAnimationOptionTransitionCurlUp
+    UIViewAnimationOptionTransitionCurlDown
+</pre>
+
+For this hint is all up to the next

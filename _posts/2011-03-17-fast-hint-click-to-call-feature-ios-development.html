@@ -1,0 +1,56 @@
+---
+layout: post
+title: ! '[Fast hint] "Click to call" feature, iOS development'
+categories:
+- Fast hint
+- Objective-C
+tags:
+- click to call
+- hint
+- ios
+- objC
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  dsq_thread_id: '256959972'
+  aktt_tweeted: '1'
+---
+Now we do a little example of how do make call into your app
+we need only one line of code for this feature
+<pre lang="objc">
+[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithString:@"tel://55555555"];
+</pre>
+OK, it's simple, but....
+We need to do a verify if the user wants to make the call
+ok, let's change a code
+
+First step
+create a IBAction with a UIAlertView to verify user decision
+
+<pre lang="objc">
+-(IBAction)clickToCall{
+         UIAlertView *msg = [[UIAlertView alloc] initWithTitle:@"Aviso" message:[NSString stringWithFormat:@"You really want to make a call to
+ %@", phoneNumber.text] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Call", nil];
+	[msg show];
+	[msg release];
+}
+</pre>
+
+And finally, verify a user decision and make a call
+
+<pre lang="objc">
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 1) {
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@",phoneNumber.text]]];
+	}else{
+		[super alertView:alertView clickedButtonAtIndex:buttonIndex];
+	}
+}
+</pre>
+
+Yeah, we made a click to call feature :)
+For this hint is all up to the next
+Thanks

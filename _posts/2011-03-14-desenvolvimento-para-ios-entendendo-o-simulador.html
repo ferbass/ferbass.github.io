@@ -1,0 +1,42 @@
+---
+layout: post
+title: Desenvolvimento para iOS - Entendendo o simulador
+categories:
+- Objective-C
+tags:
+- dicas
+- Ipad
+- iphone
+- Iphone Simulator
+- Objective-C
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  dsq_thread_id: '253366980'
+  aktt_notify_twitter: 'no'
+---
+A Apple permite que nós executemos nossas aplicações iOS em nosso Mac com o uso do simulador. O principal objetivo do simulador é para testarmos mais rapidamente a nossa aplicação, pois a implantação de um dispositivo IOS pode demorar dependendo do tamanho de nossa aplicação. Em particular o uso de um monte de imagens e outros ativos que precisam ser transferidos, retardando a implantação. No entanto, existem várias advertências ao uso do simulador.
+
+<b>Não podemos avaliar o desempenho</b>
+
+O desempenho do aplicativo sendo executado no simulador depende inteiramente da CPU do seu computador. É por isso que o aplicativo rodando no simulador não tem nenhum significado em tudo. 
+Sempre faça o seu teste de desempenho do dispositivo, utilizando a configuração de compilação de lançamento. 
+
+<b>Não é possível avaliar a utilização da memória</b>
+
+O simulador é capaz de usar toda a memória disponível no seu computador, ou seja há muito mais memória disponível no simulador do que em seu dispositivo. Isto significa que você não irá receber avisos de memória e seu aplicativo vai rodar bem no simulador, mas você pode estar cometendo um grande erro quando você rodar o aplicativo pela primeira vez em um dispositivo IOS. 
+Você pode, entretanto, avaliar a quantidade de memória é usado atualmente por seu aplicativo usando o simulador.
+
+<b>Não é possível usar todos os recursos do dispositivo IOS</b> 
+
+Algumas características, como a orientação do dispositivo que pode ser simulada usando itens de menu ou atalhos de teclado, mas isso não esta perto da experiência em dispositivo real. E alguns recursos de hardware, como o multitouch, acelerômetro, vibração, ou obter informações sobre a localização não pode ser testada em seu simulador, pois o hardware do computador não pode simular esses recursos. 
+E que fique avisado: Não adianta sacudir o seu Mac ou tocar na tela. Tente se você não acredita em mim. :)
+
+<b>O Runtime do aplicativo pode diferir</b>
+
+Acredito que essa é a situação que eu mais tenho passado.
+De vez em quando você pode encontrar situações desagradáveis, onde o aplicativo roda muito bem no simulador, mas falhas no aparelho, ou o aplicativo fica mais lento sem qualquer razão aparente. Também pode haver falhas que aparecem apenas no simulador ou apenas no dispositivo. Em caso de dúvida, e antes de mergulhar em uma busca prolongada para descobrir o que está errado, sempre tento executar o seu aplicativo no dispositivo se você está tendo problemas no simulador, ou vice-versa. Às vezes, o problema pode simplesmente ir embora, mas se não, você pode receber uma dica sobre o que está acontecendo. 
+
+Por todas estas razões, é recomendado que você teste o seu aplicativo muitas vezes em um dispositivo. Pelo menos a cada mudança importante ou perto do fim do dia, você deve executar um teste em seu dispositivo IOS para verificar que o aplicativo se comporta exatamente como planejado.

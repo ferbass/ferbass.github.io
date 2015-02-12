@@ -1,0 +1,32 @@
+---
+layout: post
+title: ! '[Fast hint] Simple way to collect disk attributes with Objective-c'
+categories:
+- Fast hint
+- Objective-C
+tags:
+- Fast hint
+- FileManager
+- Objective-C
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  dsq_thread_id: '253801819'
+  aktt_tweeted: '1'
+---
+Thats a simple way to collect disk attributes
+
+<pre lang="objc">
+    NSDictionary* fileAttributes = [[NSFileManager defaultManager] attributesOfFileSystemForPath:@"/" error:nil];
+    unsigned long long freeSpace = [[fileAttributes objectForKey:NSFileSystemFreeSize] longLongValue];
+    unsigned long long diskSpace = [[fileAttributes objectForKey:NSFileSystemSize] longLongValue];
+    // fileAttributtes return value in bytes to convert in GB we need divide result by 1073741824
+    NSLog(@"Disk Space: %dGB", (int)(diskSpace / 1073741824));
+    NSLog(@"Free Space: %dGB", (int)(freeSpace / 1073741824));
+</pre>
+
+We can get to many others attributes
+See in class reference <a href="http://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSFileManager_Class/NSFileManager_Class.pdf">NSFileManager</a>

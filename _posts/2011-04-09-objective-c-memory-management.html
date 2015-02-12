@@ -1,0 +1,41 @@
+---
+layout: post
+title: ! '[Objective-C] Memory management'
+categories:
+- Objective-C
+tags:
+- alloc
+- dealloc
+- init
+- objC
+- Objective-C
+- release
+- retail
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  aktt_notify_twitter: 'yes'
+  dsq_thread_id: '275098961'
+  aktt_tweeted: '1'
+---
+Managing object memory is a matter of performance; if an application doesn’t free unneeded objects, its memory footprint grows and performance suffers and sometimes your application crash. THAT'S BAD:(
+Memory management in a Cocoa application that doesn’t use garbage collection is based on a reference counting model. OK lets see a sample 
+
+<a href="/uploads/2011/04/memory_management.jpg"><img src="/uploads/2011/04/memory_management.jpg" alt="" title="memory_management" width="648" height="358" class="aligncenter size-full wp-image-308" /></a>
+<blockquote>image from oficial cocoa doc</blockquote>
+
+I'll try help you to explicitly manage memory in Objective-C code with simple tips
+
+<ul>
+<li>If you are not the creator of an object, but want to ensure it stays in memory for you to use, you can express an ownership interest in it.</li>
+<li>Related method: retain</li>
+<li>If you own an object, either by creating it or expressing an ownership interest, you are responsible for releasing it when you no longer need it.</li>
+<li>Related methods: release, autorelease</li>
+<li>Conversely, if you are not the creator of an object and have not expressed an ownership interest, you must not release it.</li>
+</ul>
+
+If you receive an object from elsewhere in your program and you want it to remain valid beyond that scope, you should retain or copy it. If you try to release an object that has already been deallocated, your program crashes.
+
+Remember in OS X you have a garbage collection feature of Objective-C, but in iOS this feature is not avaliable.

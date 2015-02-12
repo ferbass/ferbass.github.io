@@ -1,0 +1,48 @@
+---
+layout: post
+title: ! '[Fast hint] Customize UINavigationBar with background image'
+categories:
+- Fast hint
+- Objective-C
+tags:
+- Fast hint
+- objC
+- Objective-C
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  dsq_thread_id: '256589909'
+  aktt_tweeted: '1'
+---
+Ok, it’s really really simple
+for example we have a application like that
+
+<img src="/uploads/2011/03/Screen-shot-2011-03-16-at-21.00.39.png" alt="" title="Screen shot 2011-03-16 at 21.00.39" width="363" height="382" class="aligncenter size-full wp-image-239" />
+
+and we want to set that image to background from navigation bar
+
+<img src="/uploads/2011/03/navbar-iphone.png" alt="" title="navbar-iphone" width="320" height="44" class="aligncenter size-full wp-image-240" />
+
+ok let's show a little the code
+in the end of file appDelegate.m file, after <b>@end</b> put bellow code
+
+<pre lang="objc">
+@implementation UINavigationBar (CustomImage)
+- (void)drawRect:(CGRect)rect
+{
+	UIImage *image = [UIImage imageNamed: @"navbar-iphone.png"];
+	[image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+}
+@end
+</pre>
+
+and now...
+let's see the result
+
+<img src="/uploads/2011/03/Screen-shot-2011-03-16-at-21.12.01.png" alt="" title="Screen shot 2011-03-16 at 21.12.01" width="368" height="397" class="aligncenter size-full wp-image-242" />
+
+For this hint is all up to the next
+Thanks

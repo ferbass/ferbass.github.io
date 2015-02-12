@@ -1,0 +1,59 @@
+---
+layout: post
+title: ! '[iOS5] Integrando o Twitter em sua aplicação usando o Twitter.framework'
+categories:
+- ios
+- Objective-C
+tags:
+- iOS5
+- Twitter
+status: publish
+type: post
+published: true
+meta:
+  aktt_notify_twitter: 'yes'
+  _edit_last: '1'
+  aktt_tweeted: '1'
+  dsq_thread_id: '325240211'
+---
+Como todos sabem no dia 06/06/2011 foi anunciado pela Apple no WWDC o novo iOS 5 e dentre as features apresentadas uma das grandes novidades é a integração nativa com o Twitter.
+Agora no Settings de nossos devices temos a opção de configurar a conta do Twitter a ser usada em nosso dispositivo.
+<img src="/uploads/2011/06/Screen-shot-2011-06-07-at-22.13.52.png" alt="" title="Screen shot 2011-06-07 at 22.13.52" width="306" height="339" class="aligncenter size-full wp-image-340" />
+<img src="/uploads/2011/06/Screen-shot-2011-06-07-at-22.14.23.png" alt="" title="Screen shot 2011-06-07 at 22.14.23" width="312" height="411" class="aligncenter size-full wp-image-341" />
+
+Bem simples né? Agora vamos ver um pouco de código.
+Crie um projeto do tipo SingleViewApplication como na imagem abaixo:
+
+<a href="/uploads/2011/06/Screen-shot-2011-06-07-at-23.26.45.png"><img src="/uploads/2011/06/Screen-shot-2011-06-07-at-23.26.45-300x204.png" alt="" title="Screen shot 2011-06-07 at 23.26.45" width="300" height="204" class="aligncenter size-medium wp-image-343" /></a> 
+
+Feito isso agora devemos importar o framework do Twitter em nossa aplicação:
+
+<img src="/uploads/2011/06/Screen-shot-2011-06-07-at-23.25.42.png" alt="" title="Screen shot 2011-06-07 at 23.25.42" width="339" height="474" class="aligncenter size-full wp-image-344" />
+
+Estamos quase lá, agora basta criar um botão em seu Xib principal  e adicionarmos uma Action para esse botão:
+
+<a href="/uploads/2011/06/Screen-shot-2011-06-07-at-23.32.19.png"><img src="/uploads/2011/06/Screen-shot-2011-06-07-at-23.32.19-300x198.png" alt="" title="Screen shot 2011-06-07 at 23.32.19" width="400" height="298" class="aligncenter size-medium wp-image-345" /></a>
+
+Agora ficou facil, basta importar o framework em nosso arquivo .h da viewController principal
+
+<pre lang="objc">
+#import <Twitter/TWTweetComposeViewController.h>
+</pre>
+
+Agora adicionamos o evento para chamar a view nativa para fazer share no twitter:
+
+<pre lang="objc">
+- (IBAction)shareOnTwitter:(id)sender {
+    TWTweetComposeViewController *twitter = [[TWTweetComposeViewController alloc] init];
+    [self presentViewController:twitter animated:YES completion:nil];
+}
+</pre>
+
+O resultado final: 
+<img src="/uploads/2011/06/Screen-shot-2011-06-07-at-23.38.59.png" alt="" title="Screen shot 2011-06-07 at 23.38.59" width="396" height="744" class="aligncenter size-full wp-image-348" />
+
+Esse é apenas um exemplo basico de como compartilharmos texto, ainda temos a opção de compartilhar URLS e Imagens da mesma maneira. Com esse novo framework podemos esquecer bibliotecas como ShareKit que tem muita coisa que mutas vezes não usamos e agora também não temos o trabalho de criar API Keys no Twitter para nossas aplicações.
+
+Quem quiser pode baixar o código de exemplo no GitHub https://github.com/ferbass/Twitter_IOS5_sample
+
+Espero que tenham gostado

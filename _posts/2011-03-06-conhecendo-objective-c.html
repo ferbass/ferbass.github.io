@@ -1,0 +1,70 @@
+---
+layout: post
+title: Conhecendo Objective-C
+categories:
+- Objective-C
+tags:
+- App Store
+- C
+- Objective-C
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  dsq_thread_id: '246630082'
+  aktt_notify_twitter: 'yes'
+---
+<strong>Um pouco de história</strong>
+
+O Objective-C é basicamente a mistura de 2 linguagens C e SmallTalk, a linguagem foi desenvolvida por Brad Cox e Tom Love no início da década de 1980.
+
+Hoje em dia, é utilizada principalmente no Mac OS X e GNUstep, dois ambientes baseados no padrão OpenStep e é a principal linguagem utilizada nos aplicativos estruturais NeXTSTEP, OPENSTEP e Cocoa. Programas genéricos em Objective-C que não façam uso destas bibliotecas também podem ser compilados por qualquer sistema suportado pelo gcc, que inclui um compilador Objective-C.
+
+<strong>Um pouco de C</strong>
+
+Como citei acima Objective-C é uma linguagem que tem origem direta da linguagem C então por que não conhecer um pouco de C criando um classico "Hello World" para conhecermos a linguagem.
+<pre lang="C">
+#import <stdio.h>
+int main(){
+    printf("Hello World");
+    return 0;
+}</pre>
+<pre><span style="color: #c0c0c0;">Caso você queira compilar o código acima basta criar um arquivo exemplo.c e no terminal no diretório onde salvou o arquivo <strong>.c</strong> digitar <strong>gcc -o  exemplo exemplo.c</strong> isso ira compilar o programa. Para executar basta digitar <strong>./exemplo</strong> e ver a saída no terminal.</span></pre>
+
+OK, vamos analizar
+
+<b>#include < stdio.h></b> mas o que é isso? 
+Uma característica marcante de C é o pré-processamento.
+A linguagem C tem a capacidade de importar bibliotecas de funções que são, leigamente, comandos já prontos para usar.
+Cada um desses comandos, que chamamos de funções, estão organizados em bibliotecas diferentes. Bastando a nós determinar em qual biblioteca o compilador irá encontrar tal função.
+O pré-processamento é determinado pelo caracter #.
+
+Repare que definimos uma função com o nome <strong>main</strong> o que quer dizer <strong>principal</strong>, isso indica que o programa deve começar a rodar a partir desse ponto isso é valido tanto para C como Objective-C Se você olhar antes do <strong>main</strong> temos um indicativo <strong>int</strong> isto significa que tipo de retorno essa função deve ter nesse caso o retorno deve ser um número inteiro(Um inteiro é um valor de 32 bits que tem um intervalo de -2.147.483.648 a 2.147.483.647). Em outros casos vamos ver funções retornando <strong>char</strong>, <strong>bool</strong> e outros valores, mas vamos deixar isso mais para frente.
+
+<b>Finalmente Objective-C</b>
+
+Ok, agora vamos conhecer o tão famoso Objective-C a linguagem que está fazendo muitos milionários na <b>App Store</b> :-).
+
+Bom hoje não vamos nos aprofundar tanto na linguagem mas vamos fazer um pequeno exemplo de um "Hello World" para quebrarmos o gelo.
+
+<pre lang="objc">
+#import <Foundation/Foundation.h>
+int main(){
+  NSLog(@"Hello World");
+  return 0;
+}
+</pre>
+<pre><span style="color: #c0c0c0;">Caso você queira compilar o código acima basta criar um arquivo exemplo.m e no terminal no diretório onde salvou o arquivo <strong>.m</strong> digitar <strong>gcc -framework Foundation hello.m -o hello</strong> isso ira compilar o programa. Para executar basta digitar <strong>./exemplo</strong> e ver a saída no terminal.</span></pre>
+
+Repare que como em C nos fizemos import de uma biblioteca nesse caso importamos o <b>Foundation</b> que é o principal framework que temos em Objective-C, para conhecer mais sobre ele <a href="http://developer.apple.com/library/mac/#documentation/Cocoa/Reference/Foundation/ObjC_classic/Intro/IntroFoundation.html">clique aqui</a>
+Outras semelhanças que temos entre o código C e Objective-C é a chamada na função <b>main</b> e também o tipo de retorno esperado no caso <b>int</b>
+
+Bom por agora ficamos por aqui, essa foi uma pequena introdução, no próximo post vamos falar um pouco sobre o ambiente, classes e metodos.
+
+Referências para quem quer conhecer outros usos da linguagem Objective-C sem ser em aplicações para MAC, IPHONE e IPAD.
+<a href="http://pt.wikipedia.org/wiki/NeXT">http://pt.wikipedia.org/wiki/NeXT</a>
+<a href="http://pt.wikipedia.org/wiki/GNUstep">http://pt.wikipedia.org/wiki/GNUstep</a>
+<a href="http://pt.wikipedia.org/wiki/NEXTSTEP">http://pt.wikipedia.org/wiki/NEXTSTEP</a>
+<a href="http://pt.wikipedia.org/wiki/OpenStep">http://pt.wikipedia.org/wiki/OpenStep</a>
+Abraço
