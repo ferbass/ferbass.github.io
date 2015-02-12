@@ -14,6 +14,7 @@ theme:
   header_text: >
      
   footer_text: >
+   ferbass.com is released under a <a href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons BY-NC License</a>. <br />
    Powered by <a href="http://jekyllrb.com">Jekyll</a> with <a href="https://rohanchandra.github.io/project/type/">Type Theme</a>
   
   # Icons
@@ -27,7 +28,7 @@ theme:
   github: "ferbass"
   google_plus: 
   instagram: 
-  linkedin:  # full URL
+  linkedin: "http://br.linkedin.com/in/fernandobass"
   pinterest: 
   reddit: 
   soundcloud: 
@@ -40,7 +41,7 @@ theme:
   
   # Scripts
   google_analytics: # tracking id, e.g. "UA-000000-01"
-  disqus_shortname:
+  disqus_shortname: ferbass
   
   # Localization strings
   str_follow_on: "Follow on"
