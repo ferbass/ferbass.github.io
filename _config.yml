@@ -7,7 +7,7 @@ theme:
   # Meta
   title: ferbass
   avatar: avatar.png
-  gravatar: # email md5 hash
+  gravatar: d6eff6d7984430dd23a2ba550bfe6767 # email md5 hash
   description: "A website with blog posts and pages" # used by search engines
   
   # Header and footer text
