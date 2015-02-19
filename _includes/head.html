@@ -3,6 +3,7 @@
 	<title>{% if page.title %}{{ page.title }} |{% endif %} {{ site.theme.title }}</title>
 	<meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.theme.description }}{% endif %}">
   {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
+  {% if page.keywords %}<meta name="keywords" content="{{ page.keywords }}">{% endif %}
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<!-- CSS -->
