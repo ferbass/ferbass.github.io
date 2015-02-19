@@ -156,6 +156,8 @@ Utilizando o código acima você consegue implementar o `Dynamic Type` utilizand
 
 Você pode fazer download do exemplo de `Dynamic Type` em `Swift` no link [https://github.com/ferbass/dynamic-type](https://github.com/ferbass/dynamic-type)
 
+* [Documentação oficial da Apple](https://developer.apple.com/library/ios/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/CustomTextProcessing/CustomTextProcessing.html#//apple_ref/doc/uid/TP40009542-CH4-SW74)
+
 Espero que tenham gostado do conteúdo do post e em breve mais material e novidades.
 
 Grande abraço.
