@@ -40,7 +40,7 @@ theme:
   youtube: 
   
   # Scripts
-  google_analytics: # tracking id, e.g. "UA-000000-01"
+  google_analytics: UA-7317580-3 # tracking id, e.g. "UA-000000-01"
   disqus_shortname: ferbass
   
   # Localization strings
