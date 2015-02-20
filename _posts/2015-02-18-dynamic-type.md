@@ -3,6 +3,8 @@ layout: post
 title: ! 'Dynamic Type'
 description: Com a chegada do iOS 7 foi introduzido uma opção de acessibilidade onde o usuário pode configurar o tamanho da fonte padrão do sistema para melhorar sua leitura, essa opção é conhecida como Dynamic Type, vamos conhecer para que serve e como podemos aplicar isso em nossos aplicativos.
 keywords: Swift, Dynamic Type, iOS 7, iOS 8, iodevspot, ferbass, UILabel, NSNotificationCenter, Objective-C
+feature-img: "img/posts/dynamic-types/featured.png"
+author: ferbass
 categories:
 - ios
 - Objective-C

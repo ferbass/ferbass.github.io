@@ -35,12 +35,12 @@ header {
     color: $feature-image-text-color;
   }
   header {
-    color: $feature-image-text-color;
+    color: rgba($text-color, 1);
     background-size: $feature-image-size;
     margin-bottom: 0;
     padding: $padding-large/2.5 $padding-large;
     .meta {
-      color: rgba($feature-image-text-color, .7);
+      color: rgba($text-color, .5);
     }
   }
   .post-content {
