@@ -31,7 +31,7 @@ Essas opções podem ser vistas em: **`Ajustes > Acessibilidade > Texto Maior`**
 </center>
 
 
-Legal né? Mas o que isso influencia quando estamos desenvolvendo nossos aplicativos?
+Legal, né? Mas o que isso influencia quando estamos desenvolvendo nossos aplicativos?
 
 Bem, por padrão nossos aplicativos não implementam o Dynamic Type em seus componentes, com excessão da `UITableView` quando utilizada com as celulas padrões do sistema.
 
@@ -41,15 +41,15 @@ Bem, por padrão nossos aplicativos não implementam o Dynamic Type em seus comp
 <img src="/img/posts/dynamic-types/tableview3.png" alt="TableView Dynamic Type" width="20%" height="20%">
 </center>
 
-Se você não está muito preocupado com a `typografia` de seus aplicativos e quer implementar o `Dynamic Type` por padrão em todos os seus componentes você pode faze-lo através do `Storyboard` sem nenhuma dificuldade, basta você adicionar o componente desejado por exemplo um `UILabel` e em seguida em suas opções de fonte selecionar os tipos dinâmicos como você pode ver na imagem abaixo:
+Se você não está muito preocupado com a `typografia` de seus aplicativos e quer implementar o `Dynamic Type` por padrão em todos os seus componentes, você pode fazê-lo através do `Storyboard` sem nenhuma dificuldade, basta você adicionar o componente desejado, por exemplo um `UILabel` e em seguida em suas opções de fonte selecionar os tipos dinâmicos como você pode ver na imagem abaixo:
 
 <center>
 <img src="/img/posts/dynamic-types/label_dynamic1.png" alt="UILabel" width="20%" height="20%">
 <img src="/img/posts/dynamic-types/label_dynamic2.png" alt="UILabel Ajuste Dynamic Type" width="20%" height="20%">
 </center>
 
-Fazendo isso toda vez que seu aplicativo ou a `View` for recarregada ele vai ler as preferencias do usuário para saber se as preferencias de font foram alteradas para aplicar em seu layout.
-Uma coisa importante para observar é quando estamos selecionando o `Text Styles` via `Storyboard` é que existem 6 tipos `constants` para trabalhar, vamos ver na tabela abaixo quais são esses tipos e o que eles representam.
+Fazendo isso, toda vez que seu aplicativo ou a `View` for recarregada ele vai ler as preferências do usuário para saber se as preferências de font foram alteradas para aplicar em seu layout.
+Uma coisa importante para observar é quando estamos selecionando o `Text Styles` via `Storyboard`, é que existem 6 tipos `constants` para trabalhar, vamos ver na tabela abaixo quais são esses tipos e o que eles representam.
 
 
 | Constant        | Uso           |
@@ -65,9 +65,9 @@ Seguindo essa tabela você tem uma visão melhor de onde e qual tipo você deve 
 
 ---
 
-Primeiro ponto vamos ver como utilizar o `Dynamic Type` programaticamente e entender seu comportamento.
+Primeiro ponto, vamos ver como utilizar o `Dynamic Type` programaticamente e entender seu comportamento.
 
-Imagine um cenário onde você tem um `UILabel` e quer que ele adote o `Dynamic Type` e ao mesmo tempo ajuste o tamanho em qualquer momento que o usuário altere o tamanho da fonte sem ter que forçar o aplicativo ou a `UIView` recarregar como comentei acima, 
+Imagine um cenário onde você tem um `UILabel` e quer que ele adote o `Dynamic Type` e ao mesmo tempo ajuste o tamanho em qualquer momento que o usuário altere o tamanho da fonte, sem ter que forçar o aplicativo ou a `UIView` recarregar como comentei acima,
 nesse caso temos que pensar em 2 pontos:
 
 1. Defirnir em nosso `UILabel` qual constant do `Dynamic Type` ele vai implementar
@@ -89,7 +89,7 @@ Código em Swift
   label.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
 {% endhighlight %}
 
-Com isso resolvemos o primeiro problema agora precisamos atualizar o tamanho do texto de acordo com a preferencia do usuário sem ter que recarregar o aplicativo ou a `UIView`, para isso vamos implementar uma `Notification` que ficará escutando a notificação do sistema `UIContentSizeCategoryDidChangeNotification`
+Com isso resolvemos o primeiro problema, agora precisamos atualizar o tamanho do texto de acordo com a preferência do usuário sem ter que recarregar o aplicativo ou a `UIView`, para isso vamos implementar uma `Notification` que ficará escutando a notificação do sistema `UIContentSizeCategoryDidChangeNotification`
 
 Código em Objective-C
 
@@ -125,12 +125,12 @@ implemente esse método que vai responder a notifação definida acima
   }
 {% endhighlight %}
 
-Seguindo o exemplo acima quando o usuário alterar a preferencia de font no ajuste vai disparar a notificação do sistema `UIContentSizeCategoryDidChangeNotification` para qual criamos o `NSNotificationCenter` que fica escutando esse evento,
+Seguindo o exemplo acima, quando o usuário alterar a preferência de font no ajuste vai disparar a notificação do sistema `UIContentSizeCategoryDidChangeNotification` para qual criamos o `NSNotificationCenter` que fica escutando esse evento,
 feito isso ele vai disparar o método `didReceiveUIContentSizeCategoryDidChangeNotification` que por usa vez vai atualizar todos os elementos definidos que utilizam o `Dynamic Type`, lembrando que você precisa passar novamente os atributos na notificação.
 
 ---
 
-Outro pronto muito importate é que dificilmente vamos utilizar as fontes padrões do sistema e vamos utilizar fontes que melhor representam a identidade de nossa aplicação, para isso precisamos definir alguns pontos.
+Outro ponto muito importante é que dificilmente vamos utilizar as fontes padrões do sistema e vamos utilizar fontes que melhor representam a identidade de nossa aplicação, para isso precisamos definir alguns pontos.
 
 Para isso uma das soluções é definir o tamanho da fonte a ser utilizada de acordo com o `pointSize` da constant utilizada, uma das maneiras de fazer isso é utilizar um pequeno truque seguindo o exemplo abaixo:
 
@@ -152,7 +152,7 @@ Código em Swift
   label.font = bodyFont;
 {% endhighlight %}
 
-Utilizando o código acima você consegue implementar o `Dynamic Type` utilizando a fonte de sua preferencia.
+Utilizando o código acima você consegue implementar o `Dynamic Type` utilizando a fonte de sua preferência.
 
 ---
 
