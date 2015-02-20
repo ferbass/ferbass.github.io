@@ -130,7 +130,7 @@ feito isso ele vai disparar o método `didReceiveUIContentSizeCategoryDidChangeN
 
 ---
 
-Outro pronto muito importate é que dificilmente vamos utilizar as fontes padrões do sistema e vamos utilizar fontes que melhor representam a identidade de nossa aplicação, para isso precisamos definir alguns pontos.
+Outro ponto muito importate é que dificilmente vamos utilizar as fontes padrões do sistema e vamos utilizar fontes que melhor representam a identidade de nossa aplicação, para isso precisamos definir alguns pontos.
 
 Para isso uma das soluções é definir o tamanho da fonte a ser utilizada de acordo com o `pointSize` da constant utilizada, uma das maneiras de fazer isso é utilizar um pequeno truque seguindo o exemplo abaixo:
 
