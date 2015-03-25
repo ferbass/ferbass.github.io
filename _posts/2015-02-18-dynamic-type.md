@@ -79,15 +79,11 @@ vamos definir um label com `UIFontTextStyleBody`
 
 Código em Objective-C
 
-{% highlight objc %}
-  label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-{% endhighlight %}
+<script src="https://gist.github.com/ferbass/0f249460fdee1ca6d705.js"></script>
 
 Código em Swift
 
-{% highlight swift %}
-  label.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-{% endhighlight %}
+<script src="https://gist.github.com/ferbass/d77242d8b20416f45e46.js"></script>
 
 Com isso resolvemos o primeiro problema, agora precisamos atualizar o tamanho do texto de acordo com a preferência do usuário sem ter que recarregar o aplicativo ou a `UIView`, para isso vamos implementar uma `Notification` que ficará escutando a notificação do sistema `UIContentSizeCategoryDidChangeNotification`
 
@@ -95,35 +91,21 @@ Código em Objective-C
 
 Coloque esse código no seu ViewDidLoad
 
-{% highlight objc %}
-  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveUIContentSizeCategoryDidChangeNotification:) name:UIContentSizeCategoryDidChangeNotification object:nil];
-{% endhighlight %}
+<script src="https://gist.github.com/ferbass/d11fc82d18eb06701c70.js"></script>
 
 implemente esse método que vai responder a notifação definida acima
 
-{% highlight objc %}
-  - (void)didReceiveUIContentSizeCategoryDidChangeNotification:(NSNotification *)notification
-  {
-    label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-  }
-{% endhighlight %}
+<script src="https://gist.github.com/ferbass/09515c8c865dd4ae55c4.js"></script>
 
 Código em Swift
 
 Coloque esse código no seu ViewDidLoad
 
-{% highlight swift %}
-  NSNotificationCenter.defaultCenter().addObserver(self, selector: "didReceiveUIContentSizeCategoryDidChangeNotification:", name: UIContentSizeCategoryDidChangeNotification, object: nil)
-{% endhighlight %}
+<script src="https://gist.github.com/ferbass/9705e0d2120c8c4ad452.js"></script>
 
 implemente esse método que vai responder a notifação definida acima
 
-{% highlight swift %}
-  func didReceiveUIContentSizeCategoryDidChangeNotification(notification: NSNotification)
-  {
-    label.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-  }
-{% endhighlight %}
+<script src="https://gist.github.com/ferbass/fab00e7e3da33f5656df.js"></script>
 
 Seguindo o exemplo acima, quando o usuário alterar a preferência de font no ajuste vai disparar a notificação do sistema `UIContentSizeCategoryDidChangeNotification` para qual criamos o `NSNotificationCenter` que fica escutando esse evento,
 feito isso ele vai disparar o método `didReceiveUIContentSizeCategoryDidChangeNotification` que por usa vez vai atualizar todos os elementos definidos que utilizam o `Dynamic Type`, lembrando que você precisa passar novamente os atributos na notificação.
@@ -136,21 +118,11 @@ Para isso uma das soluções é definir o tamanho da fonte a ser utilizada de ac
 
 Código em Objective-C
 
-{% highlight Objective-c %}
-  UIFontDescriptor *descriptorFontBody = [UIFontDescriptor preferredFontDescriptorWithTextStyle:UIFontTextStyleHeadline];
-  CGFloat descriptorFontBodySize = [userHeadLineFont pointSize];
-  UIFont *bodyFont = [UIFont fontWithName:@"Zapfino" size:descriptorFontBodySize];
-  label.font = bodyFont;
-{% endhighlight %}
+<script src="https://gist.github.com/ferbass/7052c2c24102892999db.js"></script>
 
 Código em Swift
 
-{% highlight swift %}
-  let descriptorFontBody = UIFontDescriptor.preferredFontDescriptorWithTextStyle(UIFontTextStyleBody)
-  let descriptionFontBodySize = descriptorFontBody.pointSize;
-  let bodyFont = UIFont(name: "Zapfino", size: descriptionFontBodySize)
-  label.font = bodyFont;
-{% endhighlight %}
+<script src="https://gist.github.com/ferbass/62eec96021fd2b8e1b93.js"></script>
 
 Utilizando o código acima você consegue implementar o `Dynamic Type` utilizando a fonte de sua preferência.
 
